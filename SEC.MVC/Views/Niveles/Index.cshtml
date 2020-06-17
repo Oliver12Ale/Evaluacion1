@@ -1,0 +1,141 @@
+﻿@model IEnumerable<SEC.ENTITI.Niveles>
+
+<div class="bg-color-of-white">
+    <div class="container pb-2">
+        <div class="row">
+            <div class="col-8">
+                <h2>@ViewData["Titulo"]</h2>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary SiteDatatable" type="button" onclick="AddEdit(0)"><i class="fa fa-plus"></i>ADD</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <br />
+    <div style="margin:0 auto;">
+        <table id="tblEntities" class="table table-hover table-sm nowrap SiteDatatable">
+            <tr>
+            </tr>
+        </table>
+
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbody">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+        //alert('wuuuola');
+
+        const controller = '@ViewData["Controller"]'
+            , entity = '@ViewData["Entity"]'
+            , path = '@Url.Content("~")';
+        const uriList = `${path}${controller}/ListAsync`,
+            urlAddEdit = `${window.location.origin}/${controller}/AddEditAsync?itemId=`,
+            urisave = `${window.location.origin}/${controller}/SaveAsync`
+        $(document).ready(function () {
+
+
+
+            //conlsole.log(uriList);
+
+
+            $('#tblEntities').dataTable({
+
+            processing: true, // for show progress bar
+            serverSide: true, // for process server side
+            filter: true, // this is for disable filter (search box)
+            orderMulti: false, // for disable multiple column at once
+            ajax:
+            {
+                url: uriList, type: 'POST', datatype: 'json',
+
+            },
+            columns: [
+                {
+                    name: 'IdNivel', data: 'IdNivel', title: 'IdNivel',
+                    searchable: false, visible: false
+                },
+                {
+                    name: 'Nivel', data: 'Nivel', title: 'Nivel',
+                    sortable: true, searchable: true, "autoWidth": true
+                },
+                {
+                    name: 'CalificacionMin', data: 'CalificacionMin', title: 'Minimo',
+                    sortable: true, searchable: false, "autoWidth": true
+                },
+                {
+                    name: 'CalificacionMax', data: 'CalificacionMax', title: 'Maximo',
+                    sortable: true, searchable: false, "autoWidth": true
+                },
+
+                {
+                    title: '<div class="text-center">Acciones</div>',
+                    sortable: false,
+                    render: function (data, type, row) {
+                        var edit = `<div class="text-center"><i class="fas fa-pen btn btn-info" onclick="AddEdit(${row.IdNivel});"></i>`;
+                        var del = `<i class='fas fa-trash btn btn-info' onclick='DeleteAsync(event);' data-id='${row.IdIdNivel}' data-element='${row.Nivel}'></i></div >`;
+                        return `${edit}&nbsp;&nbsp;${del}`;
+                    }
+                }
+            ]
+
+        });
+
+
+
+
+        });
+
+        var AddEdit = function (Id) {
+            document.querySelector("#exampleModalLabel").innerHTML = Id === 0 ? `Agregar ${entity}` : `Actualizar ${entity}`;
+            var url = `${urlAddEdit}${Id}`;
+
+            // Hace una petición get y carga el formulario en la ventana modal
+            $('#modalbody').load(url, function () {
+                $.validator.unobtrusive.parse("#form");
+                $('#exampleModal').modal("show");
+                console.log(url);
+            });
+        }
+        $('body').on('click', '#submit', (e) => {
+            e.preventDefault();
+            $('form').validate();
+            if (!$('form').valid()) {
+                return;
+            }
+
+            var form = new FormData(document.getElementById('form'));
+            SaveAsync(urisave, form, reloadTable);
+
+        });
+
+
+
+
+    </script>
+}

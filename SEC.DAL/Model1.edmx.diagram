@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="71c9cbeb570a4ccab5c4187d77596810" Name="Diagram1">
+        <EntityTypeShape EntityType="DbModel.DetallePrueba" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Niveles" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.NivelesUsuarios" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Opciones" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Preguntas" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Pruebas" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Tecnologias" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Usuarios" Width="1.5" PointX="3.75" PointY="12.75" IsExpanded="true" />
+        <AssociationConnector Association="DbModel.FK_DetallePrueba_Pruebas" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_NivelesUsuarios_Niveles" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Pruebas_Niveles" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_NivelesUsuarios_Tecnologias" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_NivelesUsuarios_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Opciones_Preguntas" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Preguntas_Tecnologias" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Pruebas_Tecnologias" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Pruebas_Usuarios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

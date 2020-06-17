@@ -1,0 +1,282 @@
+﻿@model IEnumerable<SEC.ENTITI.Tecnologias>
+
+
+<main>
+    <div class="container valign-wrapper">
+        <div id="progress" class="spinner-grow centrado-porcentual oculto" role="status">
+            <span class="sr-only mx-auto">Loading...</span>
+        </div>
+
+        <div id="cards" class="container">
+
+
+
+            <div class="row">
+                <div class="col s12">
+                    <h4 class="text-center">MIDE TUS CONOCIMIENTOS, OBTEN TU PUNTO DE PARTIDA</h4>
+                </div>
+            </div>
+
+            <div class="row" id="rowcards">
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+        <div id="instruccionesOcultar" class="container  oculto" style="min-height:90vh;">
+            <div id="divInstrucciones" class="">
+                <div class="row ">
+                    <h3 id="tituloInstrucciones" class="mx-auto">Cualquier Texto</h3>
+                </div>
+            </div>
+            <div class="bordes centrado-porcentual">
+                <div class="row">
+                    <h4 class="mx-auto">Instrucciones</h4>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <p class="flow-text">
+                            Lee detenidamente y selecciona la opcion correcta. recuerda que solo tienes 20 segundos
+                            por
+                            pregunta
+                            <br>¡BUENA SUERTE!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+                <div class="row ">
+                    <div class="col s12 ">
+                        <button id="btnContinuar" type="button" class="btn btn-outline-success float-right"><i class="fa fa-chevron-right right-aligned"></i> Iniciar</button>
+                        <button id="btnRegresar" type="button" class="btn btn-outline-danger float-left "><i class="fa fa-chevron-left "></i> Regresar</button>
+
+                    </div>
+                </div>
+           
+        </div>
+
+        <div id="divpreguntas" class="container valign-wrapper oculto" style="min-width:90%;">
+
+            <div class="row">
+                <div class="col s12 right-align">
+                    Avance
+                </div>
+                <div class="col s12 right-align">
+                    <div class="progress black">
+                        <div id="progress2" class="determinate lime lighten-2" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 bordes">
+                <div class="row ">
+                    <div class="right-align">
+                        <h6 id="tiempo">20</h6> segundos
+                    </div>
+
+                </div>
+                <div class="center-align">
+                    <h3 id="pPregunta">Que tal?</h3>
+                </div>
+
+                <div id="RadioBtn" class="row center-align ">
+                    <form action="#">
+                        <p>
+                            <label>
+                                <input name="group1" type="radio" checked />
+                                <span>Red</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                <input name="group1" type="radio" />
+                                <span>Yellow</span>
+                            </label>
+                        </p>
+                        <p>
+
+                    </form>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <a id="btnContinuar2" class="waves-effect waves-light btn right">
+                        <i class="material-icons right">keyboard_arrow_right</i>Continuar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="modal1" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Resultados</h4>
+                <div class="container">
+                    <h5>Tu calificación es: <span id="spnCal"></span></h5>
+                    <h6>Te encuentras en un nivel: <span id="spnNivel"></span></h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Ok</a>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+
+
+
+
+@section Scripts{
+    <script>
+        const divTecnologias = document.getElementById('rowcards')
+            const controller = '@ViewData["Controller"]'
+            , entity = '@ViewData["Entity"]'
+            , path = '@Url.Content("~")';
+
+        const uriList = `${path}${controller}/Cards`
+
+      
+
+
+        $(document).ready(function () {
+
+
+            loadData();
+        });
+
+
+        function loadData() {
+           // showPreloader();
+            while (divTecnologias.firstChild) divTecnologias.removeChild(divTecnologias.firstChild);
+
+            //llmada asincrona
+            $.ajax({
+                url: uriList,
+                type: 'POST',
+                async: true,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data);
+                    data.forEach(element => {
+                        var htmlcard = `
+                    <div class="col m4 s12">
+                        <div class="card" style="width: 18rem;">
+                         <img class="card-img-top" src="${element.Imagen}" alt="Card image cap">
+                            <div class="card-body">
+                                 <h5 class="card-title">${element.NombreTec}</h5>
+                                    <p class="card-text">${element.Descripcion}</p>
+                                 <a  class="btn btn-primary" onclick="mostrarInstrucciones(${element.IdTecnologia},'${element.NombreTec}')">Go somewhere</a>
+                                 </div>
+                        </div>
+                    </div>
+                    `;
+                        divTecnologias.insertAdjacentHTML('beforeend', htmlcard)
+
+
+                    });
+
+
+
+
+                },
+                error: function (result) {
+                    console.error(result);
+                }
+            });
+
+
+            $("#cards").show();
+            $('#preLoader').hide();
+            
+
+        }
+
+        function mostrarInstrucciones(_idTecnologia, NombreTec) {
+            document.getElementById('tituloInstrucciones').innerText = 'Test ' + NombreTec
+            IdTecnologia = _idTecnologia
+
+
+
+
+
+
+            mostrarprogress();
+            setTimeout(function () {
+                $("#progress").hide();
+                $("#cards").hide();
+                $("#instruccionesOcultar").show();
+            }, 1000);
+        }
+
+
+        function mostrarprogress() {
+            $("#progress").show();
+            $("#cards").hide();
+            $("#instruccionesOcultar").hide();
+
+        }
+
+        var btnRegresar = document.getElementById('btnRegresar');
+        btnRegresar.addEventListener('click', function (e) {
+
+            regresar();
+        });
+
+        function regresar() {
+            mostrarprogress();
+            setTimeout(function () {
+                $("#progress").hide();
+                $("#cards").show();
+                $("#instruccionesOcultar").hide();
+            }, 1000);
+        }
+
+        var btnContinuar = document.getElementById('btnContinuar');
+        btnContinuar.addEventListener('click', function (e) {
+
+            $.ajax({
+                url: urlpreguntas + '/' + idTecnologia,
+                type: 'GET',
+                async: true,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+
+
+
+                    continuar();
+                    listaPreguntas = new PreguntasManager(0, data);
+                    printPregunta();
+
+
+                    console.log(data);
+                },
+                error: function (result) {
+                    console.error(result);
+                }
+            });
+
+
+
+        });
+
+    </script>
+
+
+}

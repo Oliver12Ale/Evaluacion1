@@ -1,0 +1,17 @@
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\SEC.DAL.dll.config
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\SEC.DAL.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\SEC.DAL.pdb
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\EntityFramework.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\SEC.ENTITI.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\SEC.ENTITI.pdb
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\SEC.ENTITI.dll.config
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\EntityFramework.xml
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\obj\Debug\SEC.DAL.csprojAssemblyReference.cache
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\obj\Debug\SEC.DAL.csproj.CoreCompileInputs.cache
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\obj\Debug\SEC.DAL.csproj.CopyComplete
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\obj\Debug\SEC.DAL.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.DAL\obj\Debug\SEC.DAL.pdb

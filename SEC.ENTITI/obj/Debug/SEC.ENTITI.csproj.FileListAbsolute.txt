@@ -1,0 +1,12 @@
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\SEC.ENTITI.dll.config
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\SEC.ENTITI.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\SEC.ENTITI.pdb
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\EntityFramework.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\EntityFramework.xml
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\obj\Debug\SEC.ENTITI.csproj.CoreCompileInputs.cache
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\obj\Debug\SEC.ENTITI.csproj.CopyComplete
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\obj\Debug\SEC.ENTITI.dll
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\obj\Debug\SEC.ENTITI.pdb
+C:\Users\NextClick\Desktop\SECMVC\SECMVC\SEC.ENTITI\obj\Debug\SEC.ENTITI.csprojAssemblyReference.cache

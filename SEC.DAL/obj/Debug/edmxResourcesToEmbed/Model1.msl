@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="EvaluacionEntities">
+    <EntitySetMapping Name="DetallePrueba">
+      <EntityTypeMapping TypeName="DbModel.DetallePrueba">
+        <MappingFragment StoreEntitySet="DetallePrueba">
+          <ScalarProperty Name="IdDetallePrueba" ColumnName="IdDetallePrueba" />
+          <ScalarProperty Name="IdPrueba" ColumnName="IdPrueba" />
+          <ScalarProperty Name="Pregunta" ColumnName="Pregunta" />
+          <ScalarProperty Name="OpcionUsuario" ColumnName="OpcionUsuario" />
+          <ScalarProperty Name="OpcionCorrecta" ColumnName="OpcionCorrecta" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFinal" ColumnName="FechaFinal" />
+          <ScalarProperty Name="Correcta" ColumnName="Correcta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Niveles">
+      <EntityTypeMapping TypeName="DbModel.Niveles">
+        <MappingFragment StoreEntitySet="Niveles">
+          <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+          <ScalarProperty Name="CalificacionMin" ColumnName="CalificacionMin" />
+          <ScalarProperty Name="CalificacionMax" ColumnName="CalificacionMax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NivelesUsuarios">
+      <EntityTypeMapping TypeName="DbModel.NivelesUsuarios">
+        <MappingFragment StoreEntitySet="NivelesUsuarios">
+          <ScalarProperty Name="IdNivelUsuario" ColumnName="IdNivelUsuario" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="IdTecnologia" ColumnName="IdTecnologia" />
+          <ScalarProperty Name="IdNivel" ColumnName="IdNivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Opciones">
+      <EntityTypeMapping TypeName="DbModel.Opciones">
+        <MappingFragment StoreEntitySet="Opciones">
+          <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="Opcion" ColumnName="Opcion" />
+          <ScalarProperty Name="EsCorrecta" ColumnName="EsCorrecta" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Preguntas">
+      <EntityTypeMapping TypeName="DbModel.Preguntas">
+        <MappingFragment StoreEntitySet="Preguntas">
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="IdTecnologia" ColumnName="IdTecnologia" />
+          <ScalarProperty Name="NombrePregunta" ColumnName="NombrePregunta" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pruebas">
+      <EntityTypeMapping TypeName="DbModel.Pruebas">
+        <MappingFragment StoreEntitySet="Pruebas">
+          <ScalarProperty Name="IdPrueba" ColumnName="IdPrueba" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="IdTecnologia" ColumnName="IdTecnologia" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+          <ScalarProperty Name="FechaIni" ColumnName="FechaIni" />
+          <ScalarProperty Name="FechaTer" ColumnName="FechaTer" />
+          <ScalarProperty Name="Calificacion" ColumnName="Calificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tecnologias">
+      <EntityTypeMapping TypeName="DbModel.Tecnologias">
+        <MappingFragment StoreEntitySet="Tecnologias">
+          <ScalarProperty Name="IdTecnologia" ColumnName="IdTecnologia" />
+          <ScalarProperty Name="NombreTec" ColumnName="NombreTec" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+          <ScalarProperty Name="TecActiva" ColumnName="TecActiva" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="DbModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ApPaterno" ColumnName="ApPaterno" />
+          <ScalarProperty Name="ApMaterno" ColumnName="ApMaterno" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PreguntasporTecnologia" FunctionName="DbModel.Store.PreguntasporTecnologia">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DbModel.PreguntasporTecnologia_Result">
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="IdTecnologia" ColumnName="IdTecnologia" />
+          <ScalarProperty Name="NombrePregunta" ColumnName="NombrePregunta" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PreguntasporTecnologiaV2" FunctionName="DbModel.Store.PreguntasporTecnologiaV2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DbModel.PreguntasporTecnologiaV2_Result">
+          <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
+          <ScalarProperty Name="IdTecnologia" ColumnName="IdTecnologia" />
+          <ScalarProperty Name="NombrePregunta" ColumnName="NombrePregunta" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="IdOpcion" ColumnName="IdOpcion" />
+          <ScalarProperty Name="IdPregunta1" ColumnName="IdPregunta1" />
+          <ScalarProperty Name="Opcion" ColumnName="Opcion" />
+          <ScalarProperty Name="EsCorrecta" ColumnName="EsCorrecta" />
+          <ScalarProperty Name="Activo1" ColumnName="Activo1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

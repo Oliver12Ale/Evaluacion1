@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.4.0",
+      "destination": "lib/twitter-bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap.css"
+      ]
+    },
+    {
+      "library": "jquery@3.5.0",
+      "destination": "lib/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "select2@4.0.12",
+      "destination": "lib/select2/",
+      "files": [
+        "js/select2.min.js",
+        "css/select2.min.css"
+      ]
+    },
+    {
+      "library": "moment.js@2.24.0",
+      "destination": "lib/moment.js/",
+      "files": [
+        "moment.min.js"
+      ]
+    },
+    {
+      "library": "datatables@1.10.20",
+      "destination": "lib/datatables/",
+      "files": [
+        "js/jquery.dataTables.min.js",
+        "js/dataTables.bootstrap4.min.js",
+        "images/sort_asc.png",
+        "images/sort_asc_disabled.png",
+        "images/sort_both.png",
+        "images/sort_desc.png",
+        "images/sort_desc_disabled.png",
+        "css/dataTables.bootstrap4.min.css",
+        "css/jquery.dataTables.min.css"
+      ]
+    },
+    {
+      "library": "font-awesome@5.13.0",
+      "destination": "lib/font-awesome/",
+      "files": [
+        "css/all.min.css",
+        "js/all.min.js",
+        "sprites/brands.svg",
+        "sprites/regular.svg",
+        "sprites/solid.svg",
+        "webfonts/fa-brands-400.eot",
+        "webfonts/fa-brands-400.svg",
+        "webfonts/fa-brands-400.ttf",
+        "webfonts/fa-brands-400.woff",
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-regular-400.eot",
+        "webfonts/fa-regular-400.svg",
+        "webfonts/fa-regular-400.ttf",
+        "webfonts/fa-regular-400.woff",
+        "webfonts/fa-regular-400.woff2",
+        "webfonts/fa-solid-900.eot",
+        "webfonts/fa-solid-900.svg",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-solid-900.woff",
+        "webfonts/fa-solid-900.woff2"
+      ]
+    },
+    {
+      "library": "select2-bootstrap-theme@0.1.0-beta.10",
+      "destination": "lib/select2-bootstrap-theme/",
+      "files": [
+        "select2-bootstrap.min.css"
+      ]
+    }
+  ]
+}

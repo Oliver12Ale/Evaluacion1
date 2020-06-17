@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DetallePrueba">
+    <Key>
+      <PropertyRef Name="IdDetallePrueba" />
+    </Key>
+    <Property Name="IdDetallePrueba" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPrueba" Type="Int32" />
+    <Property Name="Pregunta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="OpcionUsuario" Type="Int32" />
+    <Property Name="OpcionCorrecta" Type="Int32" />
+    <Property Name="FechaInicio" Type="DateTime" Precision="3" />
+    <Property Name="FechaFinal" Type="DateTime" Precision="3" />
+    <Property Name="Correcta" Type="Boolean" />
+    <NavigationProperty Name="Pruebas" Relationship="Self.FK_DetallePrueba_Pruebas" FromRole="DetallePrueba" ToRole="Pruebas" />
+  </EntityType>
+  <EntityType Name="Niveles">
+    <Key>
+      <PropertyRef Name="IdNivel" />
+    </Key>
+    <Property Name="IdNivel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nivel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CalificacionMin" Type="Int32" Nullable="false" />
+    <Property Name="CalificacionMax" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NivelesUsuarios" Relationship="Self.FK_NivelesUsuarios_Niveles" FromRole="Niveles" ToRole="NivelesUsuarios" />
+    <NavigationProperty Name="Pruebas" Relationship="Self.FK_Pruebas_Niveles" FromRole="Niveles" ToRole="Pruebas" />
+  </EntityType>
+  <EntityType Name="NivelesUsuarios">
+    <Key>
+      <PropertyRef Name="IdNivelUsuario" />
+    </Key>
+    <Property Name="IdNivelUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <Property Name="IdTecnologia" Type="Int32" />
+    <Property Name="IdNivel" Type="Int32" />
+    <NavigationProperty Name="Niveles" Relationship="Self.FK_NivelesUsuarios_Niveles" FromRole="NivelesUsuarios" ToRole="Niveles" />
+    <NavigationProperty Name="Tecnologias" Relationship="Self.FK_NivelesUsuarios_Tecnologias" FromRole="NivelesUsuarios" ToRole="Tecnologias" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_NivelesUsuarios_Usuarios" FromRole="NivelesUsuarios" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Opciones">
+    <Key>
+      <PropertyRef Name="IdOpcion" />
+    </Key>
+    <Property Name="IdOpcion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPregunta" Type="Int32" Nullable="false" />
+    <Property Name="Opcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EsCorrecta" Type="Boolean" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Preguntas" Relationship="Self.FK_Opciones_Preguntas" FromRole="Opciones" ToRole="Preguntas" />
+  </EntityType>
+  <EntityType Name="Preguntas">
+    <Key>
+      <PropertyRef Name="IdPregunta" />
+    </Key>
+    <Property Name="IdPregunta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdTecnologia" Type="Int32" Nullable="false" />
+    <Property Name="NombrePregunta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Opciones" Relationship="Self.FK_Opciones_Preguntas" FromRole="Preguntas" ToRole="Opciones" />
+    <NavigationProperty Name="Tecnologias" Relationship="Self.FK_Preguntas_Tecnologias" FromRole="Preguntas" ToRole="Tecnologias" />
+  </EntityType>
+  <EntityType Name="Pruebas">
+    <Key>
+      <PropertyRef Name="IdPrueba" />
+    </Key>
+    <Property Name="IdPrueba" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario" Type="Int32" Nullable="false" />
+    <Property Name="IdTecnologia" Type="Int32" Nullable="false" />
+    <Property Name="Nivel" Type="Int32" Nullable="false" />
+    <Property Name="FechaIni" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="FechaTer" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Calificacion" Type="Double" Nullable="false" />
+    <NavigationProperty Name="DetallePrueba" Relationship="Self.FK_DetallePrueba_Pruebas" FromRole="Pruebas" ToRole="DetallePrueba" />
+    <NavigationProperty Name="Niveles" Relationship="Self.FK_Pruebas_Niveles" FromRole="Pruebas" ToRole="Niveles" />
+    <NavigationProperty Name="Tecnologias" Relationship="Self.FK_Pruebas_Tecnologias" FromRole="Pruebas" ToRole="Tecnologias" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK_Pruebas_Usuarios" FromRole="Pruebas" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="Tecnologias">
+    <Key>
+      <PropertyRef Name="IdTecnologia" />
+    </Key>
+    <Property Name="IdTecnologia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreTec" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TecActiva" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="NivelesUsuarios" Relationship="Self.FK_NivelesUsuarios_Tecnologias" FromRole="Tecnologias" ToRole="NivelesUsuarios" />
+    <NavigationProperty Name="Preguntas" Relationship="Self.FK_Preguntas_Tecnologias" FromRole="Tecnologias" ToRole="Preguntas" />
+    <NavigationProperty Name="Pruebas" Relationship="Self.FK_Pruebas_Tecnologias" FromRole="Tecnologias" ToRole="Pruebas" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ApPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ApMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="NivelesUsuarios" Relationship="Self.FK_NivelesUsuarios_Usuarios" FromRole="Usuarios" ToRole="NivelesUsuarios" />
+    <NavigationProperty Name="Pruebas" Relationship="Self.FK_Pruebas_Usuarios" FromRole="Usuarios" ToRole="Pruebas" />
+  </EntityType>
+  <Association Name="FK_DetallePrueba_Pruebas">
+    <End Role="Pruebas" Type="Self.Pruebas" Multiplicity="0..1" />
+    <End Role="DetallePrueba" Type="Self.DetallePrueba" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pruebas">
+        <PropertyRef Name="IdPrueba" />
+      </Principal>
+      <Dependent Role="DetallePrueba">
+        <PropertyRef Name="IdPrueba" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NivelesUsuarios_Niveles">
+    <End Role="Niveles" Type="Self.Niveles" Multiplicity="0..1" />
+    <End Role="NivelesUsuarios" Type="Self.NivelesUsuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Niveles">
+        <PropertyRef Name="IdNivel" />
+      </Principal>
+      <Dependent Role="NivelesUsuarios">
+        <PropertyRef Name="IdNivel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pruebas_Niveles">
+    <End Role="Niveles" Type="Self.Niveles" Multiplicity="1" />
+    <End Role="Pruebas" Type="Self.Pruebas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Niveles">
+        <PropertyRef Name="IdNivel" />
+      </Principal>
+      <Dependent Role="Pruebas">
+        <PropertyRef Name="Nivel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NivelesUsuarios_Tecnologias">
+    <End Role="Tecnologias" Type="Self.Tecnologias" Multiplicity="0..1" />
+    <End Role="NivelesUsuarios" Type="Self.NivelesUsuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tecnologias">
+        <PropertyRef Name="IdTecnologia" />
+      </Principal>
+      <Dependent Role="NivelesUsuarios">
+        <PropertyRef Name="IdTecnologia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NivelesUsuarios_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="NivelesUsuarios" Type="Self.NivelesUsuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="NivelesUsuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Opciones_Preguntas">
+    <End Role="Preguntas" Type="Self.Preguntas" Multiplicity="1" />
+    <End Role="Opciones" Type="Self.Opciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Preguntas">
+        <PropertyRef Name="IdPregunta" />
+      </Principal>
+      <Dependent Role="Opciones">
+        <PropertyRef Name="IdPregunta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Preguntas_Tecnologias">
+    <End Role="Tecnologias" Type="Self.Tecnologias" Multiplicity="1" />
+    <End Role="Preguntas" Type="Self.Preguntas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tecnologias">
+        <PropertyRef Name="IdTecnologia" />
+      </Principal>
+      <Dependent Role="Preguntas">
+        <PropertyRef Name="IdTecnologia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pruebas_Tecnologias">
+    <End Role="Tecnologias" Type="Self.Tecnologias" Multiplicity="1" />
+    <End Role="Pruebas" Type="Self.Pruebas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tecnologias">
+        <PropertyRef Name="IdTecnologia" />
+      </Principal>
+      <Dependent Role="Pruebas">
+        <PropertyRef Name="IdTecnologia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pruebas_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="Pruebas" Type="Self.Pruebas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Pruebas">
+        <PropertyRef Name="Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EvaluacionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DetallePrueba" EntityType="Self.DetallePrueba" />
+    <EntitySet Name="Niveles" EntityType="Self.Niveles" />
+    <EntitySet Name="NivelesUsuarios" EntityType="Self.NivelesUsuarios" />
+    <EntitySet Name="Opciones" EntityType="Self.Opciones" />
+    <EntitySet Name="Preguntas" EntityType="Self.Preguntas" />
+    <EntitySet Name="Pruebas" EntityType="Self.Pruebas" />
+    <EntitySet Name="Tecnologias" EntityType="Self.Tecnologias" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+    <AssociationSet Name="FK_DetallePrueba_Pruebas" Association="Self.FK_DetallePrueba_Pruebas">
+      <End Role="Pruebas" EntitySet="Pruebas" />
+      <End Role="DetallePrueba" EntitySet="DetallePrueba" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NivelesUsuarios_Niveles" Association="Self.FK_NivelesUsuarios_Niveles">
+      <End Role="Niveles" EntitySet="Niveles" />
+      <End Role="NivelesUsuarios" EntitySet="NivelesUsuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pruebas_Niveles" Association="Self.FK_Pruebas_Niveles">
+      <End Role="Niveles" EntitySet="Niveles" />
+      <End Role="Pruebas" EntitySet="Pruebas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NivelesUsuarios_Tecnologias" Association="Self.FK_NivelesUsuarios_Tecnologias">
+      <End Role="Tecnologias" EntitySet="Tecnologias" />
+      <End Role="NivelesUsuarios" EntitySet="NivelesUsuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NivelesUsuarios_Usuarios" Association="Self.FK_NivelesUsuarios_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="NivelesUsuarios" EntitySet="NivelesUsuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Opciones_Preguntas" Association="Self.FK_Opciones_Preguntas">
+      <End Role="Preguntas" EntitySet="Preguntas" />
+      <End Role="Opciones" EntitySet="Opciones" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Preguntas_Tecnologias" Association="Self.FK_Preguntas_Tecnologias">
+      <End Role="Tecnologias" EntitySet="Tecnologias" />
+      <End Role="Preguntas" EntitySet="Preguntas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pruebas_Tecnologias" Association="Self.FK_Pruebas_Tecnologias">
+      <End Role="Tecnologias" EntitySet="Tecnologias" />
+      <End Role="Pruebas" EntitySet="Pruebas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pruebas_Usuarios" Association="Self.FK_Pruebas_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Pruebas" EntitySet="Pruebas" />
+    </AssociationSet>
+    <FunctionImport Name="PreguntasporTecnologia" ReturnType="Collection(DbModel.PreguntasporTecnologia_Result)">
+      <Parameter Name="idTecnologia" Mode="In" Type="Int32" />
+      <Parameter Name="noPreguntas" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PreguntasporTecnologiaV2" ReturnType="Collection(DbModel.PreguntasporTecnologiaV2_Result)">
+      <Parameter Name="idTecnologia" Mode="In" Type="Int32" />
+      <Parameter Name="noPreguntas" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="PreguntasporTecnologia_Result">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="Int32" Name="IdTecnologia" Nullable="false" />
+    <Property Type="String" Name="NombrePregunta" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Activo" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="PreguntasporTecnologiaV2_Result">
+    <Property Type="Int32" Name="IdPregunta" Nullable="false" />
+    <Property Type="Int32" Name="IdTecnologia" Nullable="false" />
+    <Property Type="String" Name="NombrePregunta" Nullable="false" MaxLength="200" />
+    <Property Type="Boolean" Name="Activo" Nullable="false" />
+    <Property Type="Int32" Name="IdOpcion" Nullable="false" />
+    <Property Type="Int32" Name="IdPregunta1" Nullable="false" />
+    <Property Type="String" Name="Opcion" Nullable="false" MaxLength="100" />
+    <Property Type="Boolean" Name="EsCorrecta" Nullable="false" />
+    <Property Type="Boolean" Name="Activo1" Nullable="false" />
+  </ComplexType>
+</Schema>

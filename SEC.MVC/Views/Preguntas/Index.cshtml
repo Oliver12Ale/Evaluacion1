@@ -1,0 +1,204 @@
+﻿@model IEnumerable<SEC.ENTITI.Preguntas>
+
+<div class="bg-color-of-white">
+    <div class="container pb-2">
+        <div class="row">
+            <div class="col-8">
+                <h2>@ViewData["Titulo"]</h2>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary SiteDatatable" type="button" onclick="AddEdit(0)"><i class="fa fa-plus"></i>ADD</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <br />
+    <div style="margin:0 auto;">
+        <table id="tblEntities" class="table table-hover table-sm nowrap SiteDatatable">
+            <tr>
+            </tr>
+        </table>
+
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbody">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        //alert('wuuuola');
+
+        const controller = '@ViewData["Controller"]'
+            , entity = '@ViewData["Entity"]'
+            , path = '@Url.Content("~")';
+        const uriList = `${path}${controller}/ListAsync`,
+            urlAddEdit = `${window.location.origin}/${controller}/AddEditAsync?itemId=`,
+            urisave = `${window.location.origin}/${controller}/SaveAsync`
+        $(document).ready(function () {
+
+            
+
+            //conlsole.log(uriList);
+
+
+            $('#tblEntities').dataTable({
+
+            processing: true, // for show progress bar
+            serverSide: true, // for process server side
+            filter: true, // this is for disable filter (search box)
+            orderMulti: false, // for disable multiple column at once
+            ajax:
+            {
+                url: uriList, type: 'POST', datatype: 'json',
+
+            },
+            columns: [
+                {
+                    name: 'IdPregunta', data: 'IdPregunta', title: 'IdPregunta',
+                    searchable: false, visible: false
+                },
+                {
+                    name: 'IdTecnologia', data: 'IdTecnologia', title: 'Tecnologia',
+                    sortable: true, searchable: true, "autoWidth": true
+                },
+                {
+                    name: 'NombrePregunta', data: 'NombrePregunta', title: 'Pregunta',
+                    sortable: true, searchable: false, "autoWidth": true
+                },
+                {
+                    name: 'Activo', data: 'Activo', title: 'Activo',
+                    sortable: true, searchable: false, "autoWidth": true
+                },
+
+                {
+                    title: '<div class="text-center">Acciones</div>',
+                    sortable: false,
+                    render: function (data, type, row) {
+                        var edit = `<div class="text-center"><i class="fas fa-pen btn btn-info" onclick="AddEdit(${row.IdPregunta});"></i>`;
+                        var del = `<i class='fas fa-trash btn btn-info' onclick='DeleteAsync(event);' data-id='${row.IdPregunta}' data-element='${row.NombrePregunta}'></i></div >`;
+                        return `${edit}&nbsp;&nbsp;${del}`;
+                    }
+                }
+            ]
+
+        });
+
+
+
+
+        });
+
+        var AddEdit = function (Id) {
+            document.querySelector("#exampleModalLabel").innerHTML = Id === 0 ? `Agregar ${entity}` : `Actualizar ${entity}`;
+            var url = `${urlAddEdit}${Id}`;
+
+            // Hace una petición get y carga el formulario en la ventana modal
+            $('#modalbody').load(url, function () {
+                $.validator.unobtrusive.parse("#form");
+                $('#exampleModal').modal("show");
+                console.log(url);
+            });
+        }
+        $('body').on('click', '#submit', (e) => {
+            e.preventDefault();
+            $('form').validate();
+            if (!$('form').valid()) {
+                return;
+            }
+
+            var form = new FormData(document.getElementById('form'));
+            SaveAsync(urisave, form, reloadTable);
+
+        });
+
+
+        $('body').on('click', '#btnAdd', (e) => {
+            e.preventDefault();
+
+            var next = $('#tblOpciones tr').length;
+
+            var tblOpciones = document.getElementById('tblOpciones');
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+
+            var content = `
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="radio"  class='radiobtn' data-type='EsCorrecta' class='radiobtn' name="Opciones[${next}].EsCorrecta" >
+                                            </div>
+                                        </div>
+                                        <input type="text" data-type='Opcion' class="form-control" name="Opciones[${next}].Opcion" >
+                                        <button type="button" class="btn btn-danger btnRemove">X</button>
+                                        <input type="hidden" data-type='IdOpcion' name="Opciones[${next}].IdOpcion" value="0">
+                                        <input type="hidden" data-type='IdPregunta' name="Opciones[${next}].IdPregunta" value="0">
+                                        <input type="hidden" class="activo" data-type='Activo' name="Opciones[${next}].Activo" value="true">
+                                    </div>`;
+
+            td.innerHTML = content;
+            tr.appendChild(td);
+            tblOpciones.appendChild(tr);
+        });
+
+        $('body').on('click', '.btnRemove', function () {
+            var tr = $(this).closest('tr');
+
+            var idopcion = $(this).closest('tr').find("[data-type='IdOpcion']")[0];
+            if (idopcion.value != "0") {
+                $(this).closest('tr').find("[data-type='Activo']").val(false);
+                $(this).closest('tr').find("input").attr("disabled", true);
+
+            } else {
+                tr.remove();
+                renameInputs();
+            }
+              
+            
+            
+
+        });
+
+        function renameInputs() {
+            var i = 0;
+            $('#tblOpciones tr').each(function () {
+                var inputs = this.querySelectorAll('input');
+
+                inputs.forEach(input => {
+                    var name = `Opciones[${i}].${input.dataset.type}`;
+                    input.setAttribute('name', name);
+                });
+                i++;
+            });
+        }
+        $('body').on('change', '.radiobtn', function () {
+            $('.radiobtn').not(this).prop('checked', false);
+            $('.radiobtn').not(this).prop('value', false);
+            $(this).prop('value', true);
+        });
+
+
+
+
+    </script>
+}

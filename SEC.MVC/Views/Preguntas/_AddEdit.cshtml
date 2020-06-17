@@ -1,0 +1,111 @@
+﻿@model SEC.MVC.Models.PreguntasModel
+
+@using (Html.BeginForm("SaveAsync", "Preguntas", FormMethod.Post, new { id = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group d-none">
+            @Html.LabelFor(model => model.IdPregunta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdPregunta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdPregunta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdTecnologia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdTecnologia, new SelectList(ViewBag.Tecnologias, "IdTecnologia", "NombreTec"), new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdTecnologia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombrePregunta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.NombrePregunta, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NombrePregunta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Activo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Activo)
+                    @Html.ValidationMessageFor(model => model.Activo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="text-center">Opciones</h4>
+
+        </div>
+        <div class=" col-md-2">
+            <input type="button" id="btnAdd" name="AddOp" value="ADD" class="btn btn-primary" />
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table id="tblOpciones" style="margin: 0 auto;">
+               @{ int i = 0;}
+                @foreach (var item in Model.Opciones)
+                {
+                    var dsbl = (item.Activo == false ? "disabled" : "");
+                    <tr>
+                        <td>
+                            @{
+
+
+
+                                var ckd = (item.EsCorrecta ? "checked" : "");
+                                var htmloption = $@"
+
+                              
+                                    <div class='input-group'>
+                                          <div class='input-group-prepend'>
+                                            <div class='input-group-text'>
+                                                  <input type='radio' class='radiobtn' data-type='EsCorrecta'  name='Opciones[{i}].EsCorrecta' value='{item.EsCorrecta}' {ckd} {dsbl}/>
+                                            </div>
+                                        </div>
+                                        <input type='text' data-type='Opcion' class='form-control' name='Opciones[{i}].Opcion' {dsbl} value='{item.Opcion}' />
+                                        <input type='button' class='btn btn-danger btnRemove' {dsbl} value='X'></input>
+                                        <input type='hidden' data-type='IdOpcion' name='Opciones[{i}].IdOpcion'  value='{item.IdOpcion}' />
+                                        <input type='hidden' data-type='IdPregunta' name='Opciones[{i}].IdPregunta'  value='{item.IdPregunta}' />
+                                        <input type='hidden' class='activo' data-type='Activo' name='Opciones[{i}].Activo' value='{item.Activo}' />
+                                        
+                                    </div>
+                            
+                                 ";
+                            }
+                            @Html.Raw(htmloption)
+                        </td>
+                    </tr>
+
+                                    i++;
+                                }
+
+
+              
+            </table>
+        </div>
+
+    </div>
+    <script>
+        $('#IdTecnologia').select2();
+    </script>
+}
+
